@@ -7,7 +7,6 @@
 #include <Pi/PiHob.h>
 #include <Library/HobLib.h>
 
-#define EFI_RESOURCE_ATTRIBUTE_ENCRYPTED            0x04000000
 #pragma pack(1)
 typedef struct {
   ///
