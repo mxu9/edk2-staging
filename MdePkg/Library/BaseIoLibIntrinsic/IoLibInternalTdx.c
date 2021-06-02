@@ -8,6 +8,7 @@
 
 
 #include "IoLibTdx.h"
+#include "BaseIoLibIntrinsicInternal.h"
 #include <Include/IndustryStandard/Tdx.h>
 #include <Library/TdxLib.h>
 
@@ -20,6 +21,26 @@
 // Direction of TDVMCALL Access, including IO and MMIO
 #define TDVMCALL_ACCESS_READ        0
 #define TDVMCALL_ACCESS_WRITE       1
+
+BOOLEAN mTdProbed = FALSE;
+BOOLEAN mIsTdGuest = FALSE;
+
+BOOLEAN
+EFIAPI
+IsTdGuest (
+  VOID
+  )
+{
+  if (mTdProbed) {
+    return mIsTdGuest;
+  }
+
+  mIsTdGuest = ProbeTd() == 0;
+  mTdProbed = TRUE;
+
+  return mIsTdGuest;
+}
+
 
 /**
   Reads an 8-bit I/O port.
